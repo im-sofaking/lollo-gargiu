@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { SlideshowDots } from "../components/portfolio-shell";
 import { homeImages, mosaicVideos } from "../lib/portfolio";
 import { usePreloadedSlideshow } from "../hooks/use-preloaded-slideshow";
+import { useSlideshowSwipe } from "../hooks/use-slideshow-swipe";
 
 // No head() here: the home route inherits title/description/og/twitter from
 // __root.tsx, and ships no og:image so serve-time hosting can inject the
@@ -121,13 +122,17 @@ function Index() {
 
   const showPrevious = () => setActive((current) => (current - 1 + order.length) % order.length);
   const showNext = () => setActive((current) => (current + 1) % order.length);
+  const swipeHandlers = useSlideshowSwipe(showPrevious, showNext);
   const image = order[active] ?? homeImages[0];
   if (!image) return null;
   return (
     <main className="home-page">
       <section className="home-slideshow home-slideshow-home" aria-live="off">
         <div className="home-stage">
-          <figure className={`home-photo-frame home-photo-frame-${image.shape}`}>
+          <figure
+            ref={swipeHandlers}
+            className={`home-photo-frame home-photo-frame-${image.shape}`}
+          >
             {isActiveImageLoaded && (
               <img
                 key={image.src}
@@ -136,6 +141,7 @@ function Index() {
                 width={image.width}
                 height={image.height}
                 className="home-image"
+                draggable={false}
               />
             )}
             <button

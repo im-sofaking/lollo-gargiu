@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { SlideshowDots } from "../components/portfolio-shell";
 import { usePreloadedSlideshow } from "../hooks/use-preloaded-slideshow";
+import { useSlideshowSwipe } from "../hooks/use-slideshow-swipe";
 import { darkroomImages } from "../lib/portfolio";
 
 export const Route = createFileRoute("/darkroom")({
@@ -30,13 +31,17 @@ function DarkroomPage() {
   const showPrevious = () =>
     setActive((current) => (current - 1 + darkroomImages.length) % darkroomImages.length);
   const showNext = () => setActive((current) => (current + 1) % darkroomImages.length);
+  const swipeHandlers = useSlideshowSwipe(showPrevious, showNext);
   const image = darkroomImages[active] ?? darkroomImages[0];
   if (!image) return null;
   return (
     <main className="home-page">
       <section className="home-slideshow" aria-live="off">
         <div className="home-stage">
-          <figure className={`home-photo-frame home-photo-frame-${image.shape}`}>
+          <figure
+            ref={swipeHandlers}
+            className={`home-photo-frame home-photo-frame-${image.shape}`}
+          >
             {isActiveImageLoaded && (
               <img
                 key={image.src}
@@ -45,6 +50,7 @@ function DarkroomPage() {
                 width={image.width}
                 height={image.height}
                 className="home-image"
+                draggable={false}
               />
             )}
             <button

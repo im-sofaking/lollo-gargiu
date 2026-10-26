@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as DarkroomRouteImport } from './routes/darkroom'
 import { Route as WorkRouteImport } from './routes/work'
 import { Route as WorkSlugRouteImport } from './routes/work.$slug'
@@ -24,11 +23,6 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactsRoute = ContactsRouteImport.update({
-  id: '/contacts',
-  path: '/contacts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DarkroomRoute = DarkroomRouteImport.update({
@@ -50,7 +44,6 @@ const WorkSlugRoute = WorkSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/contacts': typeof ContactsRoute
   '/darkroom': typeof DarkroomRoute
   '/work': typeof WorkRouteWithChildren
   '/work/$slug': typeof WorkSlugRoute
@@ -58,7 +51,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/contacts': typeof ContactsRoute
   '/darkroom': typeof DarkroomRoute
   '/work': typeof WorkRouteWithChildren
   '/work/$slug': typeof WorkSlugRoute
@@ -67,31 +59,21 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/contacts': typeof ContactsRoute
   '/darkroom': typeof DarkroomRoute
   '/work': typeof WorkRouteWithChildren
   '/work/$slug': typeof WorkSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    '/' | '/about' | '/contacts' | '/darkroom' | '/work' | '/work/$slug'
+  fullPaths: '/' | '/about' | '/darkroom' | '/work' | '/work/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contacts' | '/darkroom' | '/work' | '/work/$slug'
-  id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/contacts'
-    | '/darkroom'
-    | '/work'
-    | '/work/$slug'
+  to: '/' | '/about' | '/darkroom' | '/work' | '/work/$slug'
+  id: '__root__' | '/' | '/about' | '/darkroom' | '/work' | '/work/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  ContactsRoute: typeof ContactsRoute
   DarkroomRoute: typeof DarkroomRoute
   WorkRoute: typeof WorkRouteWithChildren
 }
@@ -110,13 +92,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contacts': {
-      id: '/contacts'
-      path: '/contacts'
-      fullPath: '/contacts'
-      preLoaderRoute: typeof ContactsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/darkroom': {
@@ -156,7 +131,6 @@ const WorkRouteWithChildren = WorkRoute._addFileChildren(WorkRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  ContactsRoute: ContactsRoute,
   DarkroomRoute: DarkroomRoute,
   WorkRoute: WorkRouteWithChildren,
 }

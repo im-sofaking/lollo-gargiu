@@ -1,5 +1,4 @@
 import { Link, Outlet, createFileRoute, useRouterState } from "@tanstack/react-router";
-import { PageHeader } from "../components/portfolio-shell";
 import { projects } from "../lib/portfolio";
 
 export const Route = createFileRoute("/work")({
@@ -22,7 +21,6 @@ function WorkPage() {
 
   return (
     <main className="page-wrap">
-      <PageHeader title="Work" />
       <ul className="project-list">
         {projects.map((project) => (
           <li key={project.slug}>

@@ -95,9 +95,6 @@ export function PortfolioShell({ children }: { children: ReactNode }) {
           <Link to="/work" onClick={closeMenu}>
             Work
           </Link>
-          <Link to="/contacts" onClick={closeMenu}>
-            Contacts
-          </Link>
           <Link to="/about" onClick={closeMenu}>
             About
           </Link>
@@ -121,6 +118,10 @@ export function PortfolioShell({ children }: { children: ReactNode }) {
   );
 }
 
-export function PageHeader(_props: { title: string }) {
-  return null;
+export function PageHeader({ title }: { title: string }) {
+  return (
+    <h1 className="page-heading">
+      <span>{title}</span>
+    </h1>
+  );
 }

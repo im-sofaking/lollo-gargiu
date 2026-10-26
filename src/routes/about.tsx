@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHeader } from "../components/portfolio-shell";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -22,21 +21,30 @@ export const Route = createFileRoute("/about")({
 });
 function AboutPage() {
   return (
-    <main className="page-wrap">
-      <PageHeader title="About" />
-      <div className="about-copy">
-        <p>
-          Lorenzo Gargiulo is an Italian photographer and director based in Rome, Italy, working
-          across reportage, fashion, lifestyle, and documentary photography.
-        </p>
-        <p>
-          <a href="mailto:lorenzogargiulo8@gmail.com">lorenzogargiulo8@gmail.com</a>
-        </p>
-        <h2>Selected Clients &amp; Collaborations</h2>
-        <p>
-          Acqua di Parma · Airbnb · Bvlgari · Calvin Klein · Kodak · Leica Camera · Magma Production
-          · Malfy Gin · Mercedes-Benz Italia · Weekend Max Mara
-        </p>
+    <main className="page-wrap about-page">
+      <div className="about-layout">
+        <div className="about-portrait-placeholder" role="img" aria-label="Portrait placeholder">
+          Portrait placeholder
+        </div>
+        <div className="about-copy">
+          <p>
+            Lorenzo Gargiulo is an Italian photographer and director based in Rome, Italy, working
+            across reportage, fashion, lifestyle, and documentary photography.
+          </p>
+          <h2>Selected Clients &amp; Collaborations</h2>
+          <p>
+            Acqua di Parma · Airbnb · Bvlgari · Calvin Klein · Kodak · Leica Camera · Magma
+            Production · Malfy Gin · Mercedes-Benz Italia · Weekend Max Mara
+          </p>
+          <h2>Contact</h2>
+          <ul className="about-contact-list">
+            <li>
+              <a href="mailto:lorenzogargiulo8@gmail.com">lorenzogargiulo8@gmail.com</a>
+            </li>
+            <li>Instagram — link to be added</li>
+            <li>Vimeo — link to be added</li>
+          </ul>
+        </div>
       </div>
     </main>
   );

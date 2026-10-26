@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { PageHeader } from "../components/portfolio-shell";
+import { ArrowLeft } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { projects } from "../lib/portfolio";
 
 export const Route = createFileRoute("/work/$slug")({
@@ -31,8 +32,12 @@ function ProjectPage() {
 
   return (
     <main className="page-wrap project-page">
-      <PageHeader title={title} />
-      <h1 className="project-title">{title}</h1>
+      <div className="project-title-bar">
+        <Link to="/work" className="project-back-link" aria-label="Torna a Work">
+          <ArrowLeft aria-hidden="true" />
+        </Link>
+        <h1 className="project-title">{title}</h1>
+      </div>
       <div className="media-placeholder project-video-placeholder">
         <span>Project film placeholder</span>
       </div>
